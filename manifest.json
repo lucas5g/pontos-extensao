@@ -1,0 +1,37 @@
+{
+    "manifest_version": 3,
+    "name": "Gerador de Folha de Ponto AZC",
+    "version": "1.0",
+    "description": "Gera PDF da folha de ponto a partir do portal AZC.",
+    "permissions": [
+        "activeTab",
+        "scripting",
+        "storage"
+    ],
+    "action": {
+        "default_popup": "popup.html"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://azc.defensoria.mg.def.br/*"
+            ],
+            "js": [
+                "content.js"
+            ]
+        }
+    ],
+    "host_permissions": [
+        "https://azc.defensoria.mg.def.br/*"
+    ],
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "logo.png"
+            ],
+            "matches": [
+                "https://azc.defensoria.mg.def.br/*"
+            ]
+        }
+    ]
+}
