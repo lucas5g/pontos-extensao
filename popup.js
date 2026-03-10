@@ -1,44 +1,64 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const nameInput = document.getElementById('name');
-  const maspInput = document.getElementById('masp');
-  const signatureInput = document.getElementById('signature');
   const btnGenerate = document.getElementById('btnGenerate');
   const statusDiv = document.getElementById('status');
+  const btnOptions = document.getElementById('btnOptions');
 
   let signatureBase64 = '';
+  let savedName = '';
+  let savedMasp = '';
 
   // Load saved data
   chrome.storage.local.get(['name', 'masp', 'signature'], (result) => {
-    if (result.name) nameInput.value = result.name;
-    if (result.masp) maspInput.value = result.masp;
+    if (result.name) savedName = result.name;
+    if (result.masp) savedMasp = result.masp;
+
+    if (result.signature && result.name && result.masp) {
+      statusDiv.innerText = '✅ Configurações prontas.';
+      statusDiv.style.color = 'green';
+    } else {
+      statusDiv.innerText = '⚠️ Faltam configurações. Clique abaixo.';
+      statusDiv.style.color = 'orange';
+    }
+
     if (result.signature) {
       signatureBase64 = result.signature;
-      statusDiv.innerText = 'Assinatura carregada.';
     }
   });
 
-  signatureInput.addEventListener('change', (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        signatureBase64 = event.target.result;
-        chrome.storage.local.set({ signature: signatureBase64 });
-        statusDiv.innerText = 'Assinatura salva!';
-      };
-      reader.readAsDataURL(file);
+  btnOptions.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (chrome.runtime.openOptionsPage) {
+      chrome.runtime.openOptionsPage();
+    } else {
+      window.open(chrome.runtime.getURL('options.html'));
     }
   });
 
   btnGenerate.addEventListener('click', async () => {
-    const name = nameInput.value;
-    const masp = maspInput.value;
-    chrome.storage.local.set({ name, masp });
+    if (!savedName || !savedMasp || !signatureBase64) {
+      alert('Por favor, configure seus dados (Nome, MASP e Assinatura) primeiro!');
+      if (chrome.runtime.openOptionsPage) {
+        chrome.runtime.openOptionsPage();
+      } else {
+        window.open(chrome.runtime.getURL('options.html'));
+      }
+      return;
+    }
 
-    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    const tabs = await chrome.tabs.query({ currentWindow: true });
+    let tab = tabs.find(t => t.active && t.url && t.url.includes('azc.defensoria.mg.def.br'));
 
-    if (!tab || !tab.url || !tab.url.includes('azc.defensoria.mg.def.br')) {
-      alert('Por favor, abra a página do AZC primeiro.');
+    // Fallback: search any tab in current window
+    if (!tab) tab = tabs.find(t => t.url && t.url.includes('azc.defensoria.mg.def.br'));
+
+    // Fallback: search all windows
+    if (!tab) {
+      const allTabs = await chrome.tabs.query({});
+      tab = allTabs.find(t => t.url && t.url.includes('azc.defensoria.mg.def.br'));
+    }
+
+    if (!tab) {
+      alert('Por favor, abra a aba da página do AZC primeiro.');
       return;
     }
 
@@ -53,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     chrome.tabs.sendMessage(tab.id, { action: "EXTRACT_DATA" }, async (response) => {
       if (response) {
-        const finalName = name || response.name;
+        const finalName = savedName || response.name;
 
         let logoBase64 = '';
         try {
@@ -69,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
           console.error('Erro ao carregar logo:', e);
         }
 
-        generatePDF({ ...response, name: finalName }, masp, signatureBase64, logoBase64);
+        generatePDF({ ...response, name: finalName }, savedMasp, signatureBase64, logoBase64);
       } else {
         alert('Erro ao extrair dados. Certifique-se de estar na tela "Minha Frequência" (AP01).');
       }
