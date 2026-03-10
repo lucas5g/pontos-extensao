@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Pré-visualização - Editar Horários</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9;
+            color: #0f172a;
+            margin: 0;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        h2 {
+            margin-top: 0;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        p {
+            color: #64748b;
+            margin-bottom: 24px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        th,
+        td {
+            border: 1px solid #e2e8f0;
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f8fafc;
+            font-weight: 600;
+            font-size: 14px;
+            color: #475569;
+        }
+
+        td {
+            font-size: 14px;
+        }
+
+        .special-day {
+            background-color: #f8fafc;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        input[type="text"] {
+            width: 65px;
+            padding: 8px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+
+        input[type="text"]:hover {
+            border-color: #94a3b8;
+        }
+
+        .btn-generate {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            box-shadow: 0 1px 2px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-generate:hover {
+            background-color: #1d4ed8;
+            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+        }
+
+        .btn-generate:active {
+            transform: translateY(1px);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Pré-visualização dos Horários</h2>
+        <p>Verifique e edite os horários antes de gerar a folha final. Preencha ou corrija os campos vazios caso tenha
+            esquecido de bater o ponto em algum momento.</p>
+
+        <table id="timesheetTable">
+            <thead>
+                <tr>
+                    <th>Dia</th>
+                    <th>Entrada 1</th>
+                    <th>Saída 1</th>
+                    <th>Entrada 2</th>
+                    <th>Saída 2</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- JS injeta as linhas aqui -->
+            </tbody>
+        </table>
+
+        <button class="btn-generate" id="btnFinish">Gerar Documento PDF Final</button>
+    </div>
+    <script src="preview.js"></script>
+</body>
+
+</html>
