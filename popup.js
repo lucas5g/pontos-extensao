@@ -13,11 +13,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (result.masp) savedMasp = result.masp;
 
     if (result.signature && result.name && result.masp) {
-      statusDiv.innerText = '✅ Configurações prontas.';
-      statusDiv.style.color = 'green';
+      statusDiv.style.display = 'none';
+      statusDiv.innerText = '';
     } else {
+      statusDiv.style.display = 'block';
       statusDiv.innerText = '⚠️ Faltam configurações. Clique abaixo.';
-      statusDiv.style.color = 'orange';
     }
 
     if (result.signature) {

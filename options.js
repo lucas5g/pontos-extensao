@@ -14,7 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (result.masp) maspInput.value = result.masp;
         if (result.signature) {
             signatureBase64 = result.signature;
-            previewDiv.innerHTML = `<p>Assinatura atual:</p><img src="${signatureBase64}" style="max-height: 50px; border: 1px solid #ccc; padding: 5px;">`;
+            previewDiv.style.display = 'block';
+            previewDiv.innerHTML = `<p>Assinatura atual:</p><img src="${signatureBase64}" alt="Assinatura">`;
         }
     });
 
@@ -25,9 +26,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const reader = new FileReader();
             reader.onload = (event) => {
                 signatureBase64 = event.target.result;
-                previewDiv.innerHTML = `<p>Pré-visualização da nova assinatura:</p><img src="${signatureBase64}" style="max-height: 50px; border: 1px solid #ccc; padding: 5px;">`;
+                previewDiv.style.display = 'block';
+                previewDiv.innerHTML = `<p>Pré-visualização da assinatura:</p><img src="${signatureBase64}" alt="Assinatura">`;
+
+                statusDiv.className = 'info';
                 statusDiv.innerText = 'Assinatura carregada, lembre-se de salvar.';
-                statusDiv.style.color = 'orange';
             };
             reader.readAsDataURL(file);
         }
@@ -38,9 +41,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const name = nameInput.value;
         const masp = maspInput.value;
         chrome.storage.local.set({ name, masp, signature: signatureBase64 }, () => {
+            statusDiv.className = 'success';
             statusDiv.innerText = 'Configurações salvas com sucesso!';
-            statusDiv.style.color = 'green';
             setTimeout(() => {
+                statusDiv.className = '';
                 statusDiv.innerText = '';
             }, 3000);
         });
