@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const e2 = p[2] || '';
         const s2 = p[3] || '';
 
-        const sigImgStyle = 'max-height: 18px; vertical-align: middle; display: block; margin: 0 auto;';
+        const sigImgStyle = 'max-height: 16px; vertical-align: middle; display: block; margin: 0 auto;';
         const sig1 = e1 && signature ? `<img src="${signature}" style="${sigImgStyle}">` : '';
         const sig2 = s1 && signature ? `<img src="${signature}" style="${sigImgStyle}">` : '';
         const sig3 = e2 && signature ? `<img src="${signature}" style="${sigImgStyle}">` : '';
