@@ -102,6 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function createPDFHtml(timesheet, masp, signature, logo) {
     const dateObj = new Date();
+    dateObj.setMonth(dateObj.getMonth() - 1);
     const monthName = new Intl.DateTimeFormat('pt-BR', { month: 'long' }).format(dateObj).toUpperCase();
     const year = dateObj.getFullYear();
 
