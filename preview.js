@@ -30,17 +30,18 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
       } else {
         const p = item.punches || [];
-        const e1 = p[0] || '';
-        const s1 = p[1] || '';
-        const e2 = p[2] || '';
-        const s2 = p[3] || '';
+        const hasPunches = p.some(value => value && value.trim());
+        const start1 = p[0] || (hasPunches ? '' : 'P.F');
+        const end1 = p[1] || '';
+        const start2 = p[2] || '';
+        const end2 = p[3] || '';
 
         tr.innerHTML = `
           <td><strong>${item.day}</strong></td>
-          <td><input type="text" data-index="${index}" data-type="0" value="${e1}" placeholder="00:00" /></td>
-          <td><input type="text" data-index="${index}" data-type="1" value="${s1}" placeholder="00:00" /></td>
-          <td><input type="text" data-index="${index}" data-type="2" value="${e2}" placeholder="00:00" /></td>
-          <td><input type="text" data-index="${index}" data-type="3" value="${s2}" placeholder="00:00" /></td>
+          <td><input type="text" data-index="${index}" data-type="0" value="${start1}" placeholder="00:00" /></td>
+          <td><input type="text" data-index="${index}" data-type="1" value="${end1}" placeholder="00:00" /></td>
+          <td><input type="text" data-index="${index}" data-type="2" value="${start2}" placeholder="00:00" /></td>
+          <td><input type="text" data-index="${index}" data-type="3" value="${end2}" placeholder="00:00" /></td>
         `;
       }
       tbody.appendChild(tr);
@@ -127,22 +128,22 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
       } else {
         const p = item.punches;
-        const e1 = p[0] || '';
-        const s1 = p[1] || '';
-        const e2 = p[2] || '';
-        const s2 = p[3] || '';
+        const start1 = p[0] || '';
+        const end1 = p[1] || '';
+        const start2 = p[2] || '';
+        const end2 = p[3] || '';
 
         const sigImgStyle = 'max-height: 16px; vertical-align: middle; display: block; margin: 0 auto;';
-        const sig1 = e1 && signature ? `<img src="${signature}" style="${sigImgStyle}">` : '';
-        const sig2 = s1 && signature ? `<img src="${signature}" style="${sigImgStyle}">` : '';
-        const sig3 = e2 && signature ? `<img src="${signature}" style="${sigImgStyle}">` : '';
-        const sig4 = s2 && signature ? `<img src="${signature}" style="${sigImgStyle}">` : '';
+        const sig1 = !['P.F', 'FERIADO'].includes(start1) && start1 && signature ? `<img src="${signature}" style="${sigImgStyle}">` : '';
+        const sig2 = end1 && signature ? `<img src="${signature}" style="${sigImgStyle}">` : '';
+        const sig3 = start2 && signature ? `<img src="${signature}" style="${sigImgStyle}">` : '';
+        const sig4 = end2 && signature ? `<img src="${signature}" style="${sigImgStyle}">` : '';
 
         rowsHtml += `
           <tr>
             <td>${dayNum}</td>
-            <td>${e1}</td><td>${sig1}</td><td>${s1}</td><td>${sig2}</td>
-            <td>${e2}</td><td>${sig3}</td><td>${s2}</td><td>${sig4}</td>
+            <td>${start1}</td><td>${sig1}</td><td>${end1}</td><td>${sig2}</td>
+            <td>${start2}</td><td>${sig3}</td><td>${end2}</td><td>${sig4}</td>
             <td></td><td></td>
           </tr>
         `;
