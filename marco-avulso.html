@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Folha de Ponto - LUCAS DE SOUSA ASSUNCAO</title>
+  <style>
+    @media print {
+      .no-print {
+        display: none;
+      }
+    }
+
+    table,
+    th,
+    td {
+      border: 1px solid black;
+      border-collapse: collapse;
+      padding: 4px;
+      text-align: center;
+    }
+
+    body {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 10px;
+      margin: 20px;
+    }
+
+    .header {
+      border: 1px solid black;
+      border-bottom: 0px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 40% 60%;
+      border-bottom: 1px solid black;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: auto auto auto;
+      border-bottom: 1px solid black;
+    }
+
+    .grid-name {
+      display: grid;
+      grid-template-columns: auto 15%;
+    }
+
+    .footer {
+      display: flex;
+      border: 1px solid black;
+      border-top: 0;
+      justify-content: center;
+      margin-top: 0px;
+    }
+
+    .sign-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      height: 60px;
+    }
+
+    .logo-img {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+    }
+
+    .sig-img {
+      max-height: 16px;
+      vertical-align: middle;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .toolbar {
+      margin-bottom: 16px;
+      padding: 12px;
+      border: 1px solid #ccc;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 14px;
+    }
+
+    .toolbar button {
+      margin-left: 8px;
+      padding: 6px 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+ 
+  <div class="header">
+    <div class="grid-2">
+      <div style="border-right: 1px solid black; display: flex; align-items: center; gap: 10px; padding: 5px;">
+        <img src="logo.png" class="logo-img" alt="logo">
+        <strong><h3>DEFENSORIA PÚBLICA DE <br> MINAS GERAIS</h3></strong>
+      </div>
+      <div style="text-align: center; padding: 5px;">
+        <strong><h3>FOLHA DE PONTO DE <br>FREQUÊNCIA</h3></strong>
+      </div>
+    </div>
+    <div class="grid-3">
+      <div style="border-right: 1px solid black; padding: 5px;">
+        UNIDADE EMITENTE: DIRETORIA DE DESENVOLVIMENTO DE SISTEMAS E PROJETOS / SEDE II
+      </div>
+      <div style="border-right: 1px solid black; padding: 5px;">
+        <strong>MÊS: <span>MARÇO</span></strong>
+      </div>
+      <div style="padding: 5px;"><strong>2026</strong></div>
+    </div>
+    <div class="grid-name">
+      <div style="border-right: 1px solid black; padding: 5px">
+        NOME DO SERVIDOR: <strong style="text-transform: uppercase;">LUCAS DE SOUSA ASSUNCAO</strong>
+      </div>
+      <div style="padding: 5px;"><strong>MASP:</strong> <span>7000.699-4</span></div>
+    </div>
+  </div>
+
+  <table style="width: 100%;">
+    <thead>
+      <tr><th colspan="5"><strong>PERÍODO DE AFASTAMENTO</strong></th><th colspan="6"><strong>MOTIVO</strong></th></tr>
+      <tr><td colspan="5"><strong>DE __/__/____ A __/__/____</strong></td><td colspan="6"></td></tr>
+      <tr><td rowspan="2">DIA</td><td colspan="4">1° TURNO</td><td colspan="4">2° TURNO</td><td rowspan="2">RUBRICA</td><td rowspan="2">OBS</td></tr>
+      <tr><td>ENTRADA</td><td>RUBRICA</td><td>SAÍDA</td><td>RUBRICA</td><td>ENTRADA</td><td>RUBRICA</td><td>SAÍDA</td><td>RUBRICA</td></tr>
+    </thead>
+    <tbody>
+      <tr><td>01</td><td style="font-weight: bold;">DOMINGO</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>02</td><td>08:14</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>11:31</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>12:31</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>17:14</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td></td><td></td></tr>
+      <tr><td>03</td><td>09:25</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>12:00</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>13:00</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>04</td><td>09:39</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>12:00</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>13:00</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>18:48</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td></td><td></td></tr>
+      <tr><td>05</td><td>09:35</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>12:00</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>13:00</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>18:44</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td></td><td></td></tr>
+      <tr><td>06</td><td>09:53</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>12:00</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>13:47</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>20:10</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td></td><td></td></tr>
+      <tr><td>07</td><td style="font-weight: bold;">SÁBADO</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>08</td><td style="font-weight: bold;">DOMINGO</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>09</td><td>09:00</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>12:10</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>13:11</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>18:44</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td></td><td></td></tr>
+      <tr><td>10</td><td>09:46</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>12:00</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>13:12</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>19:06</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td></td><td></td></tr>
+      <tr><td>11</td><td>10:07</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>12:06</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>13:21</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>19:22</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td></td><td></td></tr>
+      <tr><td>12</td><td>09:40</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>12:14</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>13:15</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>19:38</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td></td><td></td></tr>
+      <tr><td>13</td><td>09:14</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>12:03</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>13:05</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>18:33</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td></td><td></td></tr>
+      <tr><td>14</td><td style="font-weight: bold;">SÁBADO</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>15</td><td style="font-weight: bold;">DOMINGO</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>16</td><td>09:00</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>13:06</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>14:14</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>19:08</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td></td><td></td></tr>
+      <tr><td>17</td><td>09:41</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>12:00</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>13:00</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>19:05</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td></td><td></td></tr>
+      <tr><td>18</td><td>09:54</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>12:00</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>13:06</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>19:02</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td></td><td></td></tr>
+      <tr><td>19</td><td>09:30</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>12:00</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>13:00</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>19:02</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td></td><td></td></tr>
+      <tr><td>20</td><td>10:29</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>12:00</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>13:41</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>20:32</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td></td><td></td></tr>
+      <tr><td>21</td><td style="font-weight: bold;">SÁBADO</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>22</td><td style="font-weight: bold;">DOMINGO</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>23</td><td>09:31</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>12:01</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>13:01</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>19:05</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td></td><td></td></tr>
+      <tr><td>24</td><td>09:48</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>12:00</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>13:10</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>25</td><td>09:08</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>12:00</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>13:20</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>18:33</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td></td><td></td></tr>
+      <tr><td>26</td><td>09:35</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>12:00</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>13:01</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>19:22</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td></td><td></td></tr>
+      <tr><td>27</td><td>10:04</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>12:00</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>13:04</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>19:00</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td></td><td></td></tr>
+      <tr><td>28</td><td style="font-weight: bold;">SÁBADO</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>29</td><td style="font-weight: bold;">DOMINGO</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>30</td><td>09:00</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>12:00</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>13:05</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>18:57</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td></td><td></td></tr>
+      <tr><td>31</td><td>10:33</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>12:01</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>13:01</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td>19:33</td><td><img src="assinatura.png" class="sig-img" alt="assinatura"></td><td></td><td></td></tr>
+    </tbody>
+  </table>
+
+  <div style="display: flex; border: 1px solid; border-top: 0px; justify-content: center; ">
+    <div style=" display: flex; gap: 3em; border-right: 1px solid; padding: 25px 30px 10px ">
+      <span style="border-top: 1px solid; padding: 5px 15px 0px 15px">
+        DATA
+      </span>
+      <span style="border-top: 1px solid; padding: 5px 10px 0px 15px">
+        ASSINATURA DO SERVIDOR / MASP
+      </span>
+    </div>
+
+    <div style="display: flex; gap: 3em; padding: 25px 30px 10px">
+      <span style="border-top: 1px solid; padding: 5px 15px 0px 15px">
+        DATA
+      </span>
+      <span style="border-top: 1px solid; padding: 5px 10px 0px 15px">
+        ASSINATURA DA CHEFIA / MADEP OU MASP
+      </span>
+    </div>
+  </div>
+</body>
+
+</html>
