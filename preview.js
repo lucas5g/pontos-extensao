@@ -46,10 +46,49 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       tbody.appendChild(tr);
     });
+
+    validateRows();
   }
+
+  function validateRow(row) {
+    const inputs = Array.from(row.querySelectorAll('input[type="text"]'));
+    if (!inputs.length) return true;
+
+    const firstValue = inputs[0].value.trim().toUpperCase();
+    const isLeaveDay = ['P.F', 'FERIADO'].includes(firstValue);
+    const isComplete = isLeaveDay || inputs.every(input => input.value.trim());
+
+    row.classList.toggle('incomplete-row', !isComplete);
+    inputs.forEach(input => input.setAttribute('aria-invalid', String(!isComplete && !input.value.trim())));
+
+    return isComplete;
+  }
+
+  function validateRows() {
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    let allRowsComplete = true;
+
+    rows.forEach(row => {
+      if (!validateRow(row)) allRowsComplete = false;
+    });
+
+    return allRowsComplete;
+  }
+
+  tbody.addEventListener('input', (event) => {
+    const row = event.target.closest('tr');
+    if (row) validateRow(row);
+  });
 
   btnFinish.addEventListener('click', () => {
     if (!draftData) return;
+
+    if (!validateRows()) {
+      const firstEmptyInput = tbody.querySelector('.incomplete-row input[type="text"]:placeholder-shown');
+      alert('Preencha todos os horários destacados em vermelho antes de gerar o documento.');
+      if (firstEmptyInput) firstEmptyInput.focus();
+      return;
+    }
 
     btnFinish.innerText = 'Processando...';
     btnFinish.disabled = true;
@@ -79,7 +118,13 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    const htmlContent = createPDFHtml(draftData.timesheet, draftData.masp, draftData.signature, draftData.logo);
+    const htmlContent = createPDFHtml(
+      draftData.timesheet,
+      draftData.masp,
+      draftData.signature,
+      draftData.issuingDepartment,
+      draftData.logo
+    );
 
     // Abre a aba final de impressão
     const newTab = window.open('', '_blank');
@@ -101,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  function createPDFHtml(timesheet, masp, signature, logo) {
+  function createPDFHtml(timesheet, masp, signature, issuingDepartment, logo) {
     const dateObj = new Date();
     dateObj.setMonth(dateObj.getMonth() - 1);
     const monthName = new Intl.DateTimeFormat('pt-BR', { month: 'long' }).format(dateObj).toUpperCase();
@@ -184,7 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
       <div class="grid-3">
         <div style="border-right: 1px solid black; padding: 5px;">
-          UNIDADE EMITENTE: DIRETORIA DE DESENVOLVIMENTO DE SISTEMAS E PROJETOS / SEDE II
+          UNIDADE EMITENTE: ${issuingDepartment} / SEDE II
         </div>
         <div style="border-right: 1px solid black; padding: 5px;">
           <strong>MÊS: <span>${monthName}</span></strong>

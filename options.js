@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const nameInput = document.getElementById('name');
     const maspInput = document.getElementById('masp');
+    const issuingDepartmentInput = document.getElementById('issuingDepartment');
     const signatureInput = document.getElementById('signature');
     const statusDiv = document.getElementById('status');
     const previewDiv = document.getElementById('preview');
@@ -9,9 +10,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let signatureBase64 = '';
 
     // Carregar dados salvos
-    chrome.storage.local.get(['name', 'masp', 'signature'], (result) => {
+    chrome.storage.local.get(['name', 'masp', 'issuingDepartment', 'signature'], (result) => {
         if (result.name) nameInput.value = result.name;
         if (result.masp) maspInput.value = result.masp;
+        if (result.issuingDepartment) issuingDepartmentInput.value = result.issuingDepartment;
         if (result.signature) {
             signatureBase64 = result.signature;
             previewDiv.style.display = 'block';
@@ -40,7 +42,16 @@ document.addEventListener('DOMContentLoaded', () => {
     btnSave.addEventListener('click', () => {
         const name = nameInput.value;
         const masp = maspInput.value;
-        chrome.storage.local.set({ name, masp, signature: signatureBase64 }, () => {
+        const issuingDepartment = issuingDepartmentInput.value.trim();
+
+        if (!issuingDepartment) {
+            statusDiv.className = 'info';
+            statusDiv.innerText = 'Preencha a diretoria da unidade emitente.';
+            issuingDepartmentInput.focus();
+            return;
+        }
+
+        chrome.storage.local.set({ name, masp, issuingDepartment, signature: signatureBase64 }, () => {
             statusDiv.className = 'success';
             statusDiv.innerText = 'Configurações salvas com sucesso!';
             setTimeout(() => {

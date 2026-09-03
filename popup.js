@@ -6,13 +6,15 @@ document.addEventListener('DOMContentLoaded', () => {
   let signatureBase64 = '';
   let savedName = '';
   let savedMasp = '';
+  let savedIssuingDepartment = '';
 
   // Load saved data
-  chrome.storage.local.get(['name', 'masp', 'signature'], (result) => {
+  chrome.storage.local.get(['name', 'masp', 'issuingDepartment', 'signature'], (result) => {
     if (result.name) savedName = result.name;
     if (result.masp) savedMasp = result.masp;
+    if (result.issuingDepartment) savedIssuingDepartment = result.issuingDepartment;
 
-    if (result.signature && result.name && result.masp) {
+    if (result.signature && result.name && result.masp && result.issuingDepartment) {
       statusDiv.style.display = 'none';
       statusDiv.innerText = '';
     } else {
@@ -35,8 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   btnGenerate.addEventListener('click', async () => {
-    if (!savedName || !savedMasp || !signatureBase64) {
-      alert('Por favor, configure seus dados (Nome, MASP e Assinatura) primeiro!');
+    if (!savedName || !savedMasp || !savedIssuingDepartment || !signatureBase64) {
+      alert('Por favor, configure seus dados (Nome, MASP, Diretoria e Assinatura) primeiro!');
       if (chrome.runtime.openOptionsPage) {
         chrome.runtime.openOptionsPage();
       } else {
@@ -92,6 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const draftData = {
           timesheet: { ...response, name: finalName },
           masp: savedMasp,
+          issuingDepartment: savedIssuingDepartment,
           signature: signatureBase64,
           logo: logoBase64
         };
