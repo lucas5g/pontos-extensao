@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (result.masp) savedMasp = result.masp;
     if (result.issuingDepartment) savedIssuingDepartment = result.issuingDepartment;
 
-    if (result.signature && result.name && result.masp && result.issuingDepartment) {
+    if (result.name && result.masp && result.issuingDepartment) {
       statusDiv.style.display = 'none';
       statusDiv.innerText = '';
     } else {
@@ -37,8 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   btnGenerate.addEventListener('click', async () => {
-    if (!savedName || !savedMasp || !savedIssuingDepartment || !signatureBase64) {
-      alert('Por favor, configure seus dados (Nome, MASP, Diretoria e Assinatura) primeiro!');
+    if (!savedName || !savedMasp || !savedIssuingDepartment) {
+      alert('Por favor, configure seus dados (Nome, MASP e Diretoria) primeiro!');
       if (chrome.runtime.openOptionsPage) {
         chrome.runtime.openOptionsPage();
       } else {

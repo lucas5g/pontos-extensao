@@ -35,6 +35,92 @@
             margin-bottom: 24px;
         }
 
+        .schedule-mode {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 24px;
+            padding: 16px 18px;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+        }
+
+        .mode-options {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .mode-label {
+            color: #94a3b8;
+            font-size: 13px;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .mode-label.active {
+            color: #1e293b;
+        }
+
+        .mode-hint {
+            margin: 0;
+            font-size: 13px;
+            line-height: 1.5;
+            text-align: right;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 46px;
+            height: 26px;
+            flex-shrink: 0;
+        }
+
+        .switch input {
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+        }
+
+        .slider {
+            position: absolute;
+            inset: 0;
+            cursor: pointer;
+            background-color: #94a3b8;
+            border-radius: 999px;
+            transition: background-color 0.2s;
+        }
+
+        .slider::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            left: 3px;
+            top: 3px;
+            background-color: white;
+            border-radius: 50%;
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.3);
+            transition: transform 0.2s;
+        }
+
+        .switch input:checked + .slider {
+            background-color: #2563eb;
+        }
+
+        .switch input:checked + .slider::before {
+            transform: translateX(20px);
+        }
+
+        .switch input:focus-visible + .slider {
+            outline: 3px solid rgba(59, 130, 246, 0.3);
+            outline-offset: 2px;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -120,6 +206,26 @@
         .btn-generate:active {
             transform: translateY(1px);
         }
+
+        @media (max-width: 700px) {
+            body {
+                padding: 20px 12px;
+            }
+
+            .container {
+                padding: 20px 14px;
+                overflow-x: auto;
+            }
+
+            .schedule-mode {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .mode-hint {
+                text-align: left;
+            }
+        }
     </style>
 </head>
 
@@ -128,6 +234,18 @@
         <h2>Pré-visualização dos Horários</h2>
         <p>Verifique e edite os horários antes de gerar a folha final. Preencha ou corrija os campos vazios caso tenha
             esquecido de bater o ponto em algum momento.</p>
+
+        <div class="schedule-mode">
+            <div class="mode-options">
+                <span class="mode-label active" id="extractedModeLabel">Horários extraídos</span>
+                <label class="switch">
+                    <input type="checkbox" id="standardHoursToggle" role="switch" aria-describedby="modeHint">
+                    <span class="slider"></span>
+                </label>
+                <span class="mode-label" id="standardModeLabel">Horário padrão</span>
+            </div>
+            <p class="mode-hint" id="modeHint">Usando as marcações extraídas do ponto eletrônico.</p>
+        </div>
 
         <table id="timesheetTable">
             <thead>

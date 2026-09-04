@@ -1,8 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
   const tbody = document.querySelector('#timesheetTable tbody');
   const btnFinish = document.getElementById('btnFinish');
+  const standardHoursToggle = document.getElementById('standardHoursToggle');
+  const extractedModeLabel = document.getElementById('extractedModeLabel');
+  const standardModeLabel = document.getElementById('standardModeLabel');
+  const modeHint = document.getElementById('modeHint');
 
   let draftData = null;
+  const extractedHours = {};
+  const customStandardHours = {};
+  const standardHours = ['09:00', '12:00', '13:00', '18:00'];
 
   chrome.storage.local.get(['draftData'], (result) => {
     if (result.draftData) {
@@ -44,9 +51,56 @@ document.addEventListener('DOMContentLoaded', () => {
           <td><input type="text" data-index="${index}" data-type="3" value="${end2}" placeholder="00:00" /></td>
         `;
       }
+      tr.dataset.index = index;
       tbody.appendChild(tr);
     });
 
+    saveExtractedHours();
+    updateScheduleMode(standardHoursToggle.checked);
+  }
+
+  function saveExtractedHours() {
+    tbody.querySelectorAll('tr[data-index]').forEach(row => {
+      const inputs = Array.from(row.querySelectorAll('input[type="text"]'));
+      if (inputs.length) {
+        extractedHours[row.dataset.index] = inputs.map(input => input.value);
+      }
+    });
+  }
+
+  function usesStandardHours(item) {
+    const dayLabel = (item.day.split(' - ')[1] || '').trim().toUpperCase();
+    const isSpecialDay = ['SÁBADO', 'SABADO', 'DOMINGO', 'FERIADO'].includes(dayLabel) ||
+      dayLabel.startsWith('P.E') || dayLabel.startsWith('PE');
+    const firstPunch = (item.punches?.[0] || '').trim().toUpperCase();
+
+    return !isSpecialDay && !['P.F', 'FERIADO'].includes(firstPunch);
+  }
+
+  function updateScheduleMode(useStandard) {
+    tbody.querySelectorAll('tr[data-index]').forEach(row => {
+      const index = Number(row.dataset.index);
+      const inputs = Array.from(row.querySelectorAll('input[type="text"]'));
+      if (!inputs.length) return;
+
+      if (useStandard && !customStandardHours[index]) {
+        customStandardHours[index] = usesStandardHours(draftData.timesheet.data[index])
+          ? [...standardHours]
+          : [...extractedHours[index]];
+      }
+
+      const values = useStandard ? customStandardHours[index] : extractedHours[index];
+
+      inputs.forEach((input, inputIndex) => {
+        input.value = values[inputIndex] || '';
+      });
+    });
+
+    extractedModeLabel.classList.toggle('active', !useStandard);
+    standardModeLabel.classList.toggle('active', useStandard);
+    modeHint.innerText = useStandard
+      ? 'Dias úteis usarão 09:00, 12:00, 13:00 e 18:00. Feriados e dias especiais serão preservados.'
+      : 'Usando as marcações extraídas do ponto eletrônico.';
     validateRows();
   }
 
@@ -77,7 +131,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   tbody.addEventListener('input', (event) => {
     const row = event.target.closest('tr');
-    if (row) validateRow(row);
+    if (row) {
+      const currentHours = Array.from(row.querySelectorAll('input[type="text"]'))
+        .map(input => input.value);
+
+      if (standardHoursToggle.checked) {
+        customStandardHours[row.dataset.index] = currentHours;
+      } else {
+        extractedHours[row.dataset.index] = currentHours;
+      }
+      validateRow(row);
+    }
+  });
+
+  standardHoursToggle.addEventListener('change', () => {
+    updateScheduleMode(standardHoursToggle.checked);
   });
 
   btnFinish.addEventListener('click', () => {
@@ -121,7 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const htmlContent = createPDFHtml(
       draftData.timesheet,
       draftData.masp,
-      draftData.signature,
+      draftData.signature || '',
       draftData.issuingDepartment,
       draftData.logo
     );
