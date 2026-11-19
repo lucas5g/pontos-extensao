@@ -3,6 +3,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const statusDiv = document.getElementById('status');
   const btnOptions = document.getElementById('btnOptions');
 
+  document.getElementById('btnImport').addEventListener('click', () => {
+    chrome.tabs.create({ url: chrome.runtime.getURL('import.html') });
+  });
+
   let signatureBase64 = '';
   let savedName = '';
   let savedMasp = '';

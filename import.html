@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Importar PDF do AZC</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 48px 20px; background: #f1f5f9; color: #0f172a; font: 15px/1.6 system-ui, sans-serif; }
+    main { max-width: 680px; margin: auto; padding: 36px; border: 1px solid #e2e8f0; border-radius: 16px; background: white; box-shadow: 0 8px 30px #0f172a08; }
+    .eyebrow { margin: 0 0 8px; color: #2563eb; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    h1 { margin: 0 0 12px; font-size: 27px; line-height: 1.25; }
+    p { color: #475569; }
+    .file-box { display: block; margin: 28px 0 20px; padding: 22px; border: 2px dashed #cbd5e1; border-radius: 10px; background: #f8fafc; }
+    .file-box strong { display: block; margin-bottom: 12px; }
+    input { max-width: 100%; font: inherit; }
+    input::file-selector-button { padding: 8px 12px; margin-right: 12px; border: 1px solid #cbd5e1; border-radius: 6px; background: white; color: #1e293b; cursor: pointer; }
+    .actions { display: flex; gap: 12px; margin-top: 20px; }
+    button { padding: 11px 20px; border: 0; border-radius: 8px; background: #2563eb; color: white; font: 600 14px system-ui, sans-serif; cursor: pointer; }
+    button:hover { background: #1d4ed8; }
+    button:disabled { opacity: .55; cursor: default; }
+    #cancel { background: #e2e8f0; color: #334155; }
+    progress { width: 100%; height: 12px; accent-color: #2563eb; }
+    #status { white-space: pre-line; }
+    #status.error { color: #b91c1c; }
+    #config { padding: 14px; border-radius: 8px; background: #fffbeb; }
+    a { color: #1d4ed8; }
+    .privacy { margin-bottom: 0; font-size: 13px; color: #64748b; }
+    [hidden] { display: none !important; }
+    @media (max-width: 500px) { body { padding: 20px 12px; } main { padding: 24px 18px; } }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="eyebrow">Folha de Ponto AZC</p>
+    <h1>Importar PDF do AZC</h1>
+    <p>Selecione o relatório <strong>Controle de Presença e Horas de Trabalho</strong>, de um mês completo, em uma página. Os horários da jornada realizada serão abertos para sua revisão.</p>
+    <p id="config" hidden>Preencha nome, MASP e diretoria nas <a href="options.html" target="_blank" rel="noopener">configurações</a> antes de importar.</p>
+    <form id="importForm">
+      <label class="file-box" for="pdfFile"><strong>Folha mensal em PDF</strong><input id="pdfFile" type="file" accept=".pdf,application/pdf" required aria-describedby="fileHint"></label>
+      <p id="fileHint">Modelo mensal do AZC, em paisagem. Uma página, até 20 MB.</p>
+      <div id="progressArea" hidden><progress id="progress" max="1" value="0" aria-label="Progresso da importação"></progress></div>
+      <p id="status" role="status" aria-live="polite"></p>
+      <div class="actions"><button id="start" type="submit">Extrair e abrir preview</button><button id="cancel" type="button" hidden>Cancelar</button></div>
+    </form>
+    <p class="privacy">O processamento acontece neste computador. Seu PDF não é enviado a um servidor.</p>
+  </main>
+  <script type="module" src="import.js"></script>
+</body>
+</html>

@@ -5,8 +5,6 @@
     <meta charset="UTF-8">
     <title>Pré-visualização - Editar Horários</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
-
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f1f5f9;
@@ -162,6 +160,10 @@
             background-color: #fff;
         }
 
+        .source-note { display: block; margin-top: 6px; max-width: 240px; font-size: 12px; font-weight: 400; text-align: left; }
+        .review-label { display: flex; gap: 6px; margin-top: 8px; font-size: 12px; text-align: left; }
+        #importSummary { padding: 14px; border: 1px solid #bfdbfe; border-radius: 8px; background: #eff6ff; color: #1e40af; }
+
         input[type="text"] {
             width: 65px;
             padding: 8px;
@@ -232,6 +234,7 @@
 <body>
     <div class="container">
         <h2>Pré-visualização dos Horários</h2>
+        <p id="importSummary" hidden></p>
         <p>Verifique e edite os horários antes de gerar a folha final. Preencha ou corrija os campos vazios caso tenha
             esquecido de bater o ponto em algum momento.</p>
 
@@ -264,7 +267,7 @@
 
         <button class="btn-generate" id="btnFinish">Gerar Documento PDF Final</button>
     </div>
-    <script src="preview.js"></script>
+    <script type="module" src="preview.js"></script>
 </body>
 
 </html>

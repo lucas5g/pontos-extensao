@@ -1,13 +1,16 @@
 {
     "manifest_version": 3,
     "name": "Gerador de Folha de Ponto AZC",
-    "version": "2026.9.4",
+    "version": "2026.11.19",
     "description": "Gera PDF da folha de ponto a partir do portal AZC.",
     "permissions": [
         "activeTab",
         "scripting",
         "storage"
     ],
+    "content_security_policy": {
+        "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; worker-src 'self';"
+    },
     "action": {
         "default_icon": {
             "16": "icon.png",
